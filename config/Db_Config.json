@@ -1,0 +1,7 @@
+{
+  "local": {
+    "host": "mongodb://localhost",
+    "port": 27017,
+    "name": "miniproject176"
+  }
+}
