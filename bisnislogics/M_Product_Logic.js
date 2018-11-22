@@ -13,40 +13,50 @@ const M_Product_Data = {
 
     //GET PRODUCT BY ID
     readByIdHandler: (req, res, next) => {
-        let id = req.params.productId;
+      let id = req.params.productId;
         dtl.readByIdHandler(items => {
           ResponseHelper.sendResponse(res, 200, items);
-        }, id);
-      },
+      }, id);
+    },
+
+    //VALIDATION
+    
 
     //ADD PRODUCT TABLE
     createHandler: (req, res, next) => {
-        dtl.readLastId(companies => {
-          if (companies.length > 0) {
-            let pattern = companies[0].code.substr(-4);
-            let lastestCode = parseInt(pattern) + 1;
-            let generatePattern = pattern.substr(
+        let name = (req.body.name).toUpperCase();
+       dtl.readByUsername(docs => {
+         if(docs){
+          ResponseHelper.sendResponse(res, 401, "PRODUCT SUDAH ADA")
+          }else{
+          dtl.readLastId(companies => {
+            if (companies.length > 0) {
+              let pattern = companies[0].code.substr(-4);
+              let lastestCode = parseInt(pattern) + 1;
+              let generatePattern = pattern.substr(
               0,
               pattern.length - lastestCode.toString().length
-            );
-            var newCode = "PR" + generatePattern + lastestCode;
-          } else {
-            var newCode = "PR0001";
-          }
+              );
+              var newCode = "PR" + generatePattern + lastestCode;
+            } else {
+                var newCode = "PR0001";
+              }
     
-          const data = {
-            code: newCode,
-            name: req.body.name,
-            description: req.body.description,
-            is_delete: false,
-            created_by: req.body.created_by,
-            created_date: new Date().toDateString()
-          }
-    
-          dtl.createHandler(function(items) {
-            ResponseHelper.sendResponse(res, 200, items);
-          }, data);
-        });
+            const data = {
+              code: newCode,
+              name: (req.body.name).toUpperCase(),
+              description: req.body.description,
+              is_delete: false,
+              created_by: req.body.created_by,
+              created_date: new Date().toDateString()
+            }
+
+            dtl.createHandler(function(items) {
+              ResponseHelper.sendResponse(res, 200, items);
+            }, data);
+          });
+         }
+       },name)
     },
 
     //DELETE PRODUCT
