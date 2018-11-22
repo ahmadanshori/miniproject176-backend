@@ -7,6 +7,7 @@ const employeeLogic = require("../bisnislogics/M_Employee_Logic");
 const tEventLogic = require("../bisnislogics/T_Event_Logic");
 const userLogic = require("../bisnislogics/M_User_Logic");
 const unitLogic = require("../bisnislogics/M_Unit_Logic");
+const designLogic = require("../bisnislogics/T_Design_Logic");
 
 module.exports = server => {
   // Root Route
@@ -100,4 +101,12 @@ module.exports = server => {
   server.put("/api/unit/:unitId", unitLogic.updateUnitHandler);
   server.del("/api/unit/:unitId", unitLogic.deleteUnitHandler);
   //==End of Master Unit Route
+
+  // Transaction Design Route
+  // Made By: Dian Yuanda
+  server.get("/api/design", designLogic.readAllDesignHandler);
+  server.get("/api/design/:designId", designLogic.readByIdHandler);
+  server.post("/api/design", designLogic.createDesignHandler);
+  server.put("/api/design/:designId", designLogic.updateDesignHandler);
+  //== End of Transaction Design Route
 };

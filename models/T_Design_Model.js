@@ -1,22 +1,22 @@
-function T_Design(design_data) {
-  this._id = design_data._id;
-  this.code = design_data.code;
-  this.t_event_id = design_data.t_event_id;
-  this.title_header = design_data.title_header;
-  this.request_by = design_data.request_by;
-  this.request_date = design_data.request_date;
-  this.approved_by = design_data.approved_by;
-  this.approved_date = design_data.approved_date;
-  this.assign_to = design_data.assign_to;
-  this.closed_date = design_data.closed_date;
-  this.note = design_data.note;
-  this.status = design_data.status;
-  this.reject_reason = design_data.reject_reason;
-  this.is_delete = design_data.is_delete;
-  this.created_by = design_data.created_by;
-  this.created_date = design_data.created_date;
-  this.updated_by = design_data.updated_by;
-  this.updated_date = design_data.updated_date;
+function T_Design(designData) {
+  this._id = designData._id;
+  this.code = designData.code;
+  this.t_event_id = designData.t_event_id;
+  this.title_header = designData.title_header;
+  this.request_by = designData.request_by;
+  this.request_date = designData.request_date;
+  this.approved_by = designData.approved_by;
+  this.approved_date = designData.approved_date;
+  this.assign_to = designData.assign_to;
+  this.closed_date = designData.closed_date;
+  this.note = designData.note;
+  this.status = designData.status;
+  this.reject_reason = designData.reject_reason;
+  this.is_delete = designData.is_delete;
+  this.created_by = designData.created_by;
+  this.created_date = designData.created_date;
+  this.updated_by = designData.updated_by;
+  this.updated_date = designData.updated_date;
 }
 
 T_Design.prototype.getData = function() {

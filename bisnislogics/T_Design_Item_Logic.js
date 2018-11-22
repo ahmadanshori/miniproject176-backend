@@ -1,6 +1,6 @@
 const responseHandler = require("../helpers/Response_Helper");
-const souvenirData = require("../datalayers/M_Souvenir_Data");
+const designData = require("../datalayers/T_Design_Data");
 
-const M_Design_Item_Logic = {};
+const T_Design_Item_Logic = {};
 
-module.exports = M_Design_Item_Logic;
+module.exports = T_Design_Item_Logic;

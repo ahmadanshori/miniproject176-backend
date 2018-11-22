@@ -1,10 +1,10 @@
-const responseHandler = require("../helpers/Response_Helper");
+const responseHelper = require("../helpers/Response_Helper");
 const souvenirData = require("../datalayers/M_Souvenir_Data");
 
 const M_Souvenir_Logic = {
   readAllHandler: (req, res, next) => {
     souvenirData.readAllData(souvenir => {
-      responseHandler.sendResponse(res, 200, souvenir);
+      responseHelper.sendResponse(res, 200, souvenir);
     });
   },
   readByIdHandler: (req, res, next) => {
@@ -12,9 +12,9 @@ const M_Souvenir_Logic = {
 
     souvenirData.readByIdData(souvenir => {
       if (souvenir) {
-        responseHandler.sendResponse(res, 200, souvenir);
+        responseHelper.sendResponse(res, 200, souvenir);
       } else {
-        responseHandler.sendResponse(res, 404, "404. Souvenir Data Not Found");
+        responseHelper.sendResponse(res, 404, "404. Souvenir Data Not Found");
       }
     }, souvenirId);
   },
@@ -47,7 +47,7 @@ const M_Souvenir_Logic = {
       };
 
       souvenirData.createData(souvenir => {
-        responseHandler.sendResponse(res, 200, souvenir);
+        responseHelper.sendResponse(res, 200, souvenir);
       }, newSouvenir);
     });
   },
@@ -56,7 +56,6 @@ const M_Souvenir_Logic = {
 
     souvenirData.readByIdData(souvenir => {
       if (souvenir) {
-        console.log(souvenir.name);
         const name = req.body.name === "" ? souvenir.name : req.body.name;
         const description =
           req.body.description === ""
@@ -75,13 +74,13 @@ const M_Souvenir_Logic = {
 
         souvenirData.updateData(
           souvenir => {
-            responseHandler.sendResponse(res, 200, souvenir);
+            responseHelper.sendResponse(res, 200, souvenir);
           },
           souvenirId,
           updateSouvenir
         );
       } else {
-        responseHandler.sendResponse(res, 404, "Souvenir Not Found!");
+        responseHelper.sendResponse(res, 404, "Souvenir Not Found!");
       }
     }, souvenirId);
   },
@@ -93,13 +92,13 @@ const M_Souvenir_Logic = {
       if (souvenir) {
         souvenirData.deleteData(
           souvenir => {
-            responseHandler.sendResponse(res, 200, souvenir);
+            responseHelper.sendResponse(res, 200, souvenir);
           },
           souvenirId,
           deleteSouvenir
         );
       } else {
-        responseHandler.sendResponse(res, 404, "404. Souvenir Data Not Found!");
+        responseHelper.sendResponse(res, 404, "404. Souvenir Data Not Found!");
       }
     }, souvenirId);
   }
