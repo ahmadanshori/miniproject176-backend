@@ -35,7 +35,7 @@ const MEmployeeBisnislogic = {
 			body.employee_number = codeEmployee;
 	    body.is_delete = false;
 
-			Dtl.CreateHandlerData(function(items, newDate) {
+			Dtl.CreateHandlerData(function(items) {
 				ResponseHelper.sendResponse(res, 200, items);
 			}, body);
 		}, newDate)
