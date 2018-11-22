@@ -1,12 +1,4 @@
 const Database = require("../models/Database");
-<<<<<<< HEAD
-const ObjectID = require("mongodb").ObjectID;
-const M_Design = require("../models/T_Design_Model");
-
-const db = Database.getConnection();
-
-const designData = {};
-=======
 const ObjectId = require("mongodb").ObjectID;
 const M_Design = require("../models/T_Design_Model");
 
@@ -60,5 +52,4 @@ const designData = {
   }
 };
 
->>>>>>> e0e4c53581d04a327f28b29d671b4a2e058d4e47
 module.exports = designData;
