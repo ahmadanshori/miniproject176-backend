@@ -1,5 +1,6 @@
 const authenticate = require("../helpers/Auth_Helper");
 const souvenirLogic = require("../bisnislogics/M_Souvenir_Logic");
+const designLogic = require("../bisnislogics/T_Design_Logic");
 
 module.exports = server => {
   // Root Route
@@ -15,4 +16,12 @@ module.exports = server => {
   server.put("/api/souvenir/:souvenirId", souvenirLogic.updateHandler);
   server.del("/api/souvenir/:souvenirId", souvenirLogic.deleteHandler);
   //== End of Souvenir Route
+
+  // Transaction Design Route
+  // Made By: Dian Yuanda
+  server.get("/api/design", designLogic.readAllDesignHandler);
+  server.get("/api/design/:designId", designLogic.readByIdHandler);
+  server.post("/api/design", designLogic.createDesignHandler);
+  server.put("/api/design/:designId", designLogic.updateDesignHandler);
+  //== End of Transaction Design Route
 };
