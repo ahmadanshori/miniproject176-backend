@@ -47,6 +47,9 @@ module.exports = server => {
   // Transaksi Souvernir
   // Made By: Rio Yudha
   server.get("/api/tsouvernir", tSouvernirLogic.readSouvernirAllHandler);
+  server.get("/api/tsouvernir/:souvernirId", tSouvernirLogic.readByIdHandler);
   server.post("/api/tsouvernir", tSouvernirLogic.createHandler);
+  server.put("/api/tsouvernir/:souvernirId", tSouvernirLogic.updateHandler);
+  server.del("/api/tsouvernir/:souvernirId",tSouvernirLogic.deleteHandler);
   //==End of Transaksi Souvernir
 };

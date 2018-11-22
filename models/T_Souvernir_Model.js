@@ -8,8 +8,8 @@ function T_souvernir(t_souvernir_data) {
     this.request_due_date = t_souvernir_data.request_due_date;
     this.approved_by = t_souvernir_data.approved_by;
     this.approved_date = t_souvernir_data.approved_date;
-    this.reaceived_by = t_souvernir_data.reaceived_by;
-    this.reaceived_date = t_souvernir_data.reaceived_date;
+    this.received_by = t_souvernir_data.received_by;
+    this.received_date = t_souvernir_data.received_date;
     this.settlement_by = t_souvernir_data.settlement_by;
     this.settlement_date = t_souvernir_data.settlement_date;
     this.settlement_approved_by = t_souvernir_data.settlement_approved_by;
@@ -31,7 +31,10 @@ function T_souvernir(t_souvernir_data) {
       type: this.type,
       t_event_id: this.t_event_id,
       request_by: this.request_by,
-      reaceived_date: this.request_date,
+      request_date: this.request_date,
+      request_due_date: this.request_due_date,
+      received_by: this.received_by,
+      received_date: this.received_date,
       approved_by: this.approved_by,
       approved_date: this.approved_date,
       settlement_by: this.settlement_by,
