@@ -3,7 +3,7 @@ const Database = require("../models/Database");
 const M_Souvenir = require("../models/M_Souvenir_Model");
 
 const db = Database.getConnection();
-const SouvenirData = {
+const souvenirData = {
   readAllData: callback => {
     db.collection("m_souvenir")
       .find({ is_delete: false })
@@ -61,4 +61,4 @@ const SouvenirData = {
   }
 };
 
-module.exports = SouvenirData;
+module.exports = souvenirData;

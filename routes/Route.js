@@ -1,31 +1,24 @@
 const souvenirLogic = require("../bisnislogics/M_Souvenir_Logic");
 const menuBisnisLogic = require("../bisnislogics/M_Menu_Bisnis_Logic");
-const authenticate = require("../helpers/Auth_Helper");
 const productLogic = require("../bisnislogics/M_Product_Logic");
 const tSouvernirLogic = require("../bisnislogics/T_Souvernir_Logic");
+const employeeLogic = require("../bisnislogics/M_Employee_Logic");
+const tEventLogic = require("../bisnislogics/T_Event_Logic");
 
 module.exports = server => {
   // Root Route
   server.get("/", (req, res, next) => {});
 
-  // Souvenir Route
+  // Master Souvenir Route
   // Made By: Dian Yuanda
   server.get("/api/souvenir", souvenirLogic.readAllHandler);
   server.get("/api/souvenir/:souvenirId", souvenirLogic.readByIdHandler);
-  server.post("/api/souvenir", authenticate, souvenirLogic.createHandler);
-  server.put(
-    "/api/souvenir/:souvenirId",
-    authenticate,
-    souvenirLogic.updateHandler
-  );
-  server.del(
-    "/api/souvenir/:souvenirId",
-    authenticate,
-    souvenirLogic.deleteHandler
-  );
-  //== End of Souvenir Route
+  server.post("/api/souvenir", souvenirLogic.createHandler);
+  server.put("/api/souvenir/:souvenirId", souvenirLogic.updateHandler);
+  server.del("/api/souvenir/:souvenirId", souvenirLogic.deleteHandler);
+  //== End of Master Souvenir Route
 
-  // Menu Route
+  // Master Menu Route
   // Made By: Ahmad Anshori
   server.get("/api/menu", menuBisnisLogic.readMenuAlHandler);
   server.get("/api/menusidebar", menuBisnisLogic.readMenuSidebar);
@@ -33,20 +26,38 @@ module.exports = server => {
   server.post("/api/menu", menuBisnisLogic.createMenuHandler);
   server.put("/api/menu/:menuid", menuBisnisLogic.updateMenuHandler);
   server.del("/api/menu/:menuid", menuBisnisLogic.deleteMenuHandler);
-  //== End of Menu Route
+  //== End of Master Menu Route
 
-  // Product Route
+  // Master Product Route
   // Made By: Rio Yudha P
   server.get("/api/product", productLogic.readAllHandler);
   server.get("/api/product/:productId", productLogic.readByIdHandler);
   server.post("/api/product", productLogic.createHandler);
   server.put("/api/product/:productId", productLogic.updateHandler);
   server.del("/api/product/:productId", productLogic.deleteHandler);
-  //== End of Product Route
+  //== End of Master Product Route
 
-  // Transaksi Souvernir
+  // Master Employee Route
+  // Made By: Purwanto
+  server.get("/api/employee", employeeLogic.readAllHandler);
+  server.get("/api/employee/:employeeId", employeeLogic.readByIdHandler);
+  server.post("/api/employee", employeeLogic.createHandler);
+  server.put("/api/employee/:employeeId", employeeLogic.updateHandler);
+  server.del("/api/employee/:employeeId", employeeLogic.deleteHandler);
+  //== End of Master Employee Route
+
+  // Transaction Event Route
+  // Made By: Purwanto
+  server.get("/api/tevent", tEventLogic.readAllHandler);
+  server.get("/api/tevent/:teventId", tEventLogic.readByIdHandler);
+  server.post("/api/tevent", tEventLogic.createHandler);
+  server.put("/api/tevent/:teventId", tEventLogic.updateHandler);
+  server.del("/api/tevent/:teventId", tEventLogic.deleteHandler);
+  //== End of Transaction Event Route
+
+  // Transaction Souvernir Route
   // Made By: Rio Yudha
   server.get("/api/tsouvernir", tSouvernirLogic.readSouvernirAllHandler);
   server.post("/api/tsouvernir", tSouvernirLogic.createHandler);
-  //==End of Transaksi Souvernir
+  //==End of Transaction Souvernir Route
 };
