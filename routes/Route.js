@@ -64,6 +64,7 @@ module.exports = server => {
   // Transaction Souvernir Route
   // Made By: Rio Yudha
   server.get("/api/tsouvernir", tSouvernirLogic.readSouvernirAllHandler);
+  server.get("/api/tsouvernir/:souvernirId", tSouvernirLogic.readByIdHandler);
   server.post("/api/tsouvernir", tSouvernirLogic.createHandler);
   //==End of Transaction Souvernir Route
 
@@ -109,4 +110,10 @@ module.exports = server => {
   server.post("/api/design", designLogic.createDesignHandler);
   server.put("/api/design/:designId", designLogic.updateDesignHandler);
   //== End of Transaction Design Route
+
+  // Transaction Souvenir Route
+  // Made By: Rio Yudha
+  server.put("/api/tsouvernir/:souvernirId", tSouvernirLogic.updateHandler);
+  server.del("/api/tsouvernir/:souvernirId", tSouvernirLogic.deleteHandler);
+  //==End of Transaksi Souvernir
 };

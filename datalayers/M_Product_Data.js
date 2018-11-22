@@ -43,6 +43,16 @@ const dt = {
         });
     },
 
+    //VALIDATION
+    readByUsername: (callback, name) => {
+      db.collection("m_product").findOne(
+        { is_delete: false, name: name },
+        (err, docs) => {
+          callback(docs);
+        }
+      );
+    },
+
     //POST PRODUCT
     createHandler: (callback, data) => {
         db.collection("m_product").insert(data, (err, docs) => {
