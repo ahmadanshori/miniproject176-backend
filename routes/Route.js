@@ -1,13 +1,17 @@
+const authenticate = require("../helpers/Auth_Helper");
 const souvenirLogic = require("../bisnislogics/M_Souvenir_Logic");
 const menuBisnisLogic = require("../bisnislogics/M_Menu_Bisnis_Logic");
 const productLogic = require("../bisnislogics/M_Product_Logic");
 const tSouvernirLogic = require("../bisnislogics/T_Souvernir_Logic");
 const employeeLogic = require("../bisnislogics/M_Employee_Logic");
 const tEventLogic = require("../bisnislogics/T_Event_Logic");
+const userLogic = require("../bisnislogics/M_User_Logic");
 
 module.exports = server => {
   // Root Route
   server.get("/", (req, res, next) => {});
+
+  // All Routes Here
 
   // Master Souvenir Route
   // Made By: Dian Yuanda
@@ -60,4 +64,30 @@ module.exports = server => {
   server.get("/api/tsouvernir", tSouvernirLogic.readSouvernirAllHandler);
   server.post("/api/tsouvernir", tSouvernirLogic.createHandler);
   //==End of Transaction Souvernir Route
+
+  // Master User Route
+  // Made By: Hanif Al Baaits
+  server.get(
+    "/api/user",
+    authenticate.checkToken,
+    userLogic.readUserAllHandler
+  );
+  server.get(
+    "/api/user/:userid",
+    authenticate.checkToken,
+    userLogic.readUserByUsername
+  );
+  server.post(
+    "/api/user",
+    authenticate.checkToken,
+    userLogic.createUserHandler
+  );
+  server.post("/api/user/login", userLogic.loginUserHandler);
+  server.put("/api/user/:userid", userLogic.updateUserById);
+  server.del(
+    "/api/user/:id",
+    authenticate.checkToken,
+    userLogic.deleteUserHandler
+  );
+  //==End of Master User Route
 };
