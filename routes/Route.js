@@ -6,6 +6,7 @@ const tSouvernirLogic = require("../bisnislogics/T_Souvernir_Logic");
 const employeeLogic = require("../bisnislogics/M_Employee_Logic");
 const tEventLogic = require("../bisnislogics/T_Event_Logic");
 const userLogic = require("../bisnislogics/M_User_Logic");
+const unitLogic = require("../bisnislogics/M_Unit_Logic");
 
 module.exports = server => {
   // Root Route
@@ -90,4 +91,13 @@ module.exports = server => {
     userLogic.deleteUserHandler
   );
   //==End of Master User Route
+
+  // Master Unit Route
+  // Made By: Fahmi Muzakki
+  server.get("/api/unit", unitLogic.readUnitHandler);
+  server.get("/api/unit/:unitId", unitLogic.readOneByIdHandler);
+  server.post("/api/unit", unitLogic.createUnitHandler);
+  server.put("/api/unit/:unitId", unitLogic.updateUnitHandler);
+  server.del("/api/unit/:unitId", unitLogic.deleteUnitHandler);
+  //==End of Master Unit Route
 };
