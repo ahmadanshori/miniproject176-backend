@@ -29,7 +29,6 @@ const M_Unit_BisnisLogic = {
     },
 
     updateUnitHandler: (req, res, next) => {
-
         const id = req.params.unitId
         const data = {
             code: req.body.code,
