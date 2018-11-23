@@ -11,12 +11,23 @@ const designLogic = require("../bisnislogics/T_Design_Logic");
 const roleLogic = require("../bisnislogics/M_Role_Bisnis_Logic");
 const accessLogic = require("../bisnislogics/M_Menu_Access_Bisnis_Logic");
 const companyLogic = require("../bisnislogics/M_Company_Bisnis_Logic");
+const designItemLogic = require("../bisnislogics/T_Design_Item_Logic.js");
 
 module.exports = server => {
   // Root Route
   server.get("/", (req, res, next) => {});
 
-  // Master Souvenir Route
+  // All Routes Here
+
+  // Design Item Route
+  // Made By: Dian Yuanda
+  server.get("/api/design/item/:designId", designItemLogic.readAllItemHandler);
+  server.post("/api/design/item", designItemLogic.createItemHandler);
+  server.put("/api/design/item/:itemId", designItemLogic.updateItemHandler);
+  server.del("/api/design/item/:itemId", designItemLogic.deleteItemHandler);
+  //== End of Design Item Route
+
+  // Souvenir Route
   // Made By: Dian Yuanda
   server.get("/api/souvenir", authenticate, souvenirLogic.readAllHandler);
   server.get(
