@@ -109,6 +109,48 @@ const T_Design_Logic = {
         );
       }
     }, designId);
+  },
+  approveHandler: (req, res, next) => {
+    let data = req.body;
+    const id = req.params.Id;
+
+    if (req.body.status != 0) {
+      data = {
+        status: parseInt(req.body.status) + 1,
+        assign_to: req.body.assign_to
+      };
+    } else {
+      data = { status: 0, assign_to: null };
+    }
+    designData.approveStatus(
+      function(items) {
+        ResponseHelper.sendResponse(res, 200, items);
+      },
+      data,
+      id
+    );
+  },
+  closeReqHandler: (req, res, next) => {
+    let data = req.body;
+    designData.closeRequestData(
+      function(items) {
+        ResponseHelper.sendResponse(res, 200, items);
+      },
+      data,
+      id
+    );
+  },
+  getDesignItem: (req, res, next) => {
+    const id = req.params.Id;
+    designData.readDesignItemById(function(items) {
+      ResponseHelper.sendResponse(res, 200, items);
+    }, id);
+  },
+  readFile: (req, res, next) => {
+    const id = req.params.Id;
+    designData.readFilebyId(function(items) {
+      ResponseHelper.sendResponse(res, 200, items);
+    }, id);
   }
 };
 module.exports = T_Design_Logic;

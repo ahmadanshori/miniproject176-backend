@@ -209,4 +209,20 @@ module.exports = server => {
     tSouvernirLogic.deleteHandler
   );
   //==End of Transaksi Souvernir
+
+  // Transaction Design Approve Route
+  // Made By: Fahmi Muzakki
+  server.put(
+    "/api/design/approve/:Id",
+    authenticate,
+    designLogic.approveHandler
+  );
+  server.put(
+    "/api/design/close_request/:Id",
+    authenticate,
+    designLogic.closeReqHandler
+  );
+  server.get("/api/design/item/:Id", authenticate, designLogic.getDesignItem);
+  server.get("/api/design/file/:Id", authenticate, designLogic.readFile);
+  //== End of Transaction Design Approve
 };
