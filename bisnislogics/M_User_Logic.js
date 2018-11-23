@@ -11,8 +11,10 @@ const M_user_Logic = {
     });
   },
   readEmployeeFromUser: (req, res, next) => {
-    dtl.readEmployeeFromUser(items => {
-      ResponseHelper.sendResponse(res, 200, items);
+    userData.readEmployeeFromUser(items => {
+      //sebelumnya dtl ganti userData
+      responseHelper.sendResponse(res, 200, items);
+      //responhelper jadi camelcase
     });
   },
   readUserByUsername: (req, res, next) => {
@@ -104,7 +106,8 @@ const M_user_Logic = {
     let id = req.params.userid;
     let username = req.body.username;
     let password = req.body.password;
-    dtl.readUserByUsername(docs => {
+    userData.readUserByUsername(docs => {
+      //sebelumnya dtl ganti userData
       if (docs) {
         if (bcrypt.compareSync(password, docs.password)) {
           const data = {
@@ -117,9 +120,9 @@ const M_user_Logic = {
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(data.password, salt, (err, hash) => {
               data.password = hash;
-              dtl.updateUserHandler(
+              userData.updateUserData(
                 items => {
-                  ResponseHelper.sendResponse(res, 200, items);
+                  responseHelper.sendResponse(res, 200, items);
                 },
                 data,
                 id
@@ -127,10 +130,10 @@ const M_user_Logic = {
             });
           });
         } else {
-          ResponseHelper.sendResponse(res, 404, "Password not match");
+          responseHelper.sendResponse(res, 404, "Password not match");
         }
       } else {
-        ResponseHelper.sendResponse(res, 404, "User not found");
+        responseHelper.sendResponse(res, 404, "User not found");
       }
     }, username);
   }
