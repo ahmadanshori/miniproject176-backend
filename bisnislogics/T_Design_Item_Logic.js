@@ -2,6 +2,13 @@ const responseHelper = require("../helpers/Response_Helper");
 const designItemData = require("../datalayers/T_Design_Item_Data");
 
 const T_Design_Item_Logic = {
+  readAllItemHandler: (req, res, next) => {
+    const designId = req.params.designId;
+
+    designItemData.readAllItemData(items => {
+      responseHelper.sendResponse(res, 200, items);
+    }, designId);
+  },
   createItemHandler: (req, res, next) => {
     let formdata = req.body.design_item_data;
 
