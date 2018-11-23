@@ -1,7 +1,7 @@
 {
   "local": {
-    "host": "mongodb://localhost",
-    "port": 27017,
+    "host": "mongodb://miniproject_user:ayamgeprek176@ds039707.mlab.com",
+    "port": 39707,
     "name": "miniproject176"
   }
 }
