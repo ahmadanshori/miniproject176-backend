@@ -23,5 +23,6 @@ module.exports = server => {
   server.get('/api/design/file/:Id', DesignLogic.readFile)
 
   
-  //DESIGN APPROVER 
+  //DESIGN CLOSE REQUEST 
+  server.post('/api/design/item_file', DesignLogic.createDesignItemFile)
 };

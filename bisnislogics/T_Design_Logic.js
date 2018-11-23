@@ -1,3 +1,4 @@
+const Moment = require('moment')
 const ResponseHelper = require('../helpers/Response_Helper')
 const dtl = require('../datalayers/T_Design_Data')
 
@@ -28,6 +29,16 @@ const T_Design = {
     },
 
     // <<<< PHASE 3 REQUEST PROGRESS  >>>
+
+    createDesignItemFile: (req, res, next) => {
+        let data = req.body.design_item_file_data
+        console.log(data)
+            dtl.createItemFileData(function (items) {
+                ResponseHelper.sendResponse(res, 200, items)
+            }, data)
+        
+    },
+
     getDesignItem:(req,res,next)=>
     {
         const id = req.params.Id
@@ -43,5 +54,6 @@ const T_Design = {
             ResponseHelper.sendResponse(res, 200, items)
         }, id)
     },
+
 }
 module.exports = T_Design
