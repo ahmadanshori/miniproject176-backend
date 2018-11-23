@@ -26,15 +26,37 @@ const dt = {
     );
   },
 
+  readEmployeeFromUser: (callback, username) => {
+    db.collection("m_employee")
+      .aggregate([
+        {
+          $lookup: {
+            from: "m_user",
+            localField: "employee_number",
+            foreignField: "m_employee_id",
+            as: "key"
+          }
+        },
+        { $match: { key: [] } },
+        {
+          $project: {
+            employee_number: "$employee_number",
+            name: { $concat: ["$first_name", " ", "$last_name"] }
+          }
+        }
+      ])
+      .toArray((err, docs) => {
+        callback(docs);
+      });
+  },
+
   create_User_Handler: (callback, data) => {
-    console.log(data);
     db.collection("m_user").insertOne(data, (err, docs) => {
       callback(docs);
     });
   },
 
   deleteUserHandler: (callback, id) => {
-    //console.log(id);
     db.collection("m_user").updateOne(
       {
         _id: new ObjectID(id)
@@ -47,8 +69,6 @@ const dt = {
   },
 
   updateUserHandler: (callback, data, id) => {
-    console.log(JSON.stringify(data));
-    console.log(id);
     db.collection("m_user").updateOne(
       { _id: new ObjectID(id) },
       { $set: data },
