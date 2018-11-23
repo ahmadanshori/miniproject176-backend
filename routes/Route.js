@@ -1,12 +1,18 @@
 const authenticate = require("../helpers/Auth_Helper");
 const souvenirLogic = require("../bisnislogics/M_Souvenir_Logic");
 const designLogic = require("../bisnislogics/T_Design_Logic");
+const designItemLogic = require("../bisnislogics/T_Design_Item_Logic.js");
 
 module.exports = server => {
   // Root Route
   server.get("/", (req, res, next) => {});
 
   // All Routes Here
+
+  // Design Item Route
+  // Made By: Dian Yuanda
+  server.post("/api/design/item", designItemLogic.createItemHandler);
+  //== End of Design Item Route
 
   // Souvenir Route
   // Made By: Dian Yuanda
