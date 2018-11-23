@@ -83,12 +83,13 @@ module.exports = server => {
 
   // Master Menu Route
   // Made By: Ahmad Anshori
-  server.get("/api/menu", authenticate, menuLogic.readMenuAlHandler);
-  server.get("/api/menusidebar", authenticate, menuLogic.readMenuSidebar);
-  server.get("/api/menu/:menuid", authenticate, menuLogic.readMenuOneById);
-  server.post("/api/menu", authenticate, menuLogic.createMenuHandler);
-  server.put("/api/menu/:menuid", authenticate, menuLogic.updateMenuHandler);
-  server.del("/api/menu/:menuid", authenticate, menuLogic.deleteMenuHandler);
+ server.get("/api/menu",MenuBisnisLogic.readMenuAlHandler); //mengambil seluruh data company
+  server.get("/api/menusidebar",MenuBisnisLogic.readMenuSidebar); //mengambil seluruh data company
+  server.get("/api/menu/:menuid",MenuBisnisLogic.readMenuOneById); //menhambil 1 data berdasarkan params company
+  server.post("/api/menu",MenuBisnisLogic.createMenuHandler); //membuat company baru (body)
+  server.put("/api/menu/:menuid",MenuBisnisLogic.updateMenuHandler); //mengupdate berdasarkan params dan body
+  server.del("/api/menu/:menuid",MenuBisnisLogic.deleteMenuHandler); //mengubah field delete menjadi true
+
   //== End of Master Menu Route
 
   // Master Product Route

@@ -27,7 +27,7 @@ const dt = {
             .aggregate([{
                     $lookup: {
                         from: "m_menu",
-                        localField: "parentId",
+                        localField: "parent_id",
                         foreignField: "code",
                         as: "new"
                     }
@@ -107,7 +107,7 @@ const dt = {
     updateMenuHandler: (callback, data, id) => {
         console.log(data);
         db.collection("m_menu").updateOne({
-                code: id
+                _id : new ObjectID(id)
             }, {
                 $set: data
             },

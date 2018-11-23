@@ -3,12 +3,12 @@ function M_menu(m_menu_data) {
     this.code = m_menu_data.code
     this.name = m_menu_data.name
     this.controller = m_menu_data.controller
-    this.parentId = m_menu_data.parent_id
-    this.isDelete = m_menu_data.is_delete
-    this.createdBy = m_menu_data.created_by
-    this.createdDate = m_menu_data.created_date
-    this.updatedBy = m_menu_data.updated_by
-    this.updatedDate = m_menu_data.updated_date
+    this.parent_id = m_menu_data.parent_id
+    this.is_delete = m_menu_data.is_delete
+    this.created_by = m_menu_data.created_by
+    this.created_date = m_menu_data.created_date
+    this.updated_by = m_menu_data.updated_by
+    this.updated_date = m_menu_data.updated_date
 }
 
 M_menu.prototype.getData = function () {
@@ -17,11 +17,11 @@ M_menu.prototype.getData = function () {
         code: this.code,
         name: this.name,
         controller: this.controller,
-        isDelete: this.is_delete,
-        createdBy: this.created_by,
-        createdDate: this.created_date,
-        updatedBy: this.updated_by,
-        updatedDate: this.updated_date
+        is_delete: this.is_delete,
+        created_by: this.created_by,
+        created_date: this.created_date,
+        updated_by: this.updated_by,
+        updated_date: this.updated_date
     }
 }
 
