@@ -1,4 +1,4 @@
-const authenticate = require("../helpers/Auth_Helper");
+const authenticate = require("../helpers/Auth_Helper").checkToken;
 const souvenirLogic = require("../bisnislogics/M_Souvenir_Logic");
 const menuLogic = require("../bisnislogics/M_Menu_Bisnis_Logic");
 const productLogic = require("../bisnislogics/M_Product_Logic");
@@ -18,143 +18,195 @@ module.exports = server => {
 
   // Master Souvenir Route
   // Made By: Dian Yuanda
-  server.get("/api/souvenir", souvenirLogic.readAllHandler);
-  server.get("/api/souvenir/:souvenirId", souvenirLogic.readByIdHandler);
-  server.post("/api/souvenir", souvenirLogic.createHandler);
-  server.put("/api/souvenir/:souvenirId", souvenirLogic.updateHandler);
-  server.del("/api/souvenir/:souvenirId", souvenirLogic.deleteHandler);
+  server.get("/api/souvenir", authenticate, souvenirLogic.readAllHandler);
+  server.get(
+    "/api/souvenir/:souvenirId",
+    authenticate,
+    souvenirLogic.readByIdHandler
+  );
+  server.post("/api/souvenir", authenticate, souvenirLogic.createHandler);
+  server.put(
+    "/api/souvenir/:souvenirId",
+    authenticate,
+    souvenirLogic.updateHandler
+  );
+  server.del(
+    "/api/souvenir/:souvenirId",
+    authenticate,
+    souvenirLogic.deleteHandler
+  );
   //== End of Master Souvenir Route
 
   // Master Company Route
   // Made By: Deovani Anugrah
-  server.get("/api/company", companyLogic.readCompanyAlHandler); //mengambil seluruh data company
-  server.get("/api/company/:companyid", companyLogic.readCompanyOneById); //menhambil 1 data berdasarkan params company
-  server.post("/api/company", companyLogic.create_company_Handler); //membuat company baru (body)
-  server.put("/api/company/:companyid", companyLogic.updateCompanyHandler); //mengupdate berdasarkan params dan body
-  server.del("/api/company/:companyid", companyLogic.deleteCompanyHandler); //mengubah field delete menjadi true
+  server.get("/api/company", authenticate, companyLogic.readCompanyAlHandler);
+  server.get(
+    "/api/company/:companyid",
+    authenticate,
+    companyLogic.readCompanyOneById
+  );
+  server.post(
+    "/api/company",
+    authenticate,
+    companyLogic.create_company_Handler
+  );
+  server.put(
+    "/api/company/:companyid",
+    authenticate,
+    companyLogic.updateCompanyHandler
+  );
+  server.del(
+    "/api/company/:companyid",
+    authenticate,
+    companyLogic.deleteCompanyHandler
+  );
   //== End of Master Company Route
 
   // Master Role Route
   // Made By: Randika Alditia
-  server.get("/api/role", roleLogic.readAllRole); // get all role
-  server.get("/api/role/:id", roleLogic.readOneRole); //get role by param
-  server.post("/api/role", roleLogic.createRole); //create role
-  server.put("/api/role/:id", roleLogic.updateRole); //update role by param
-  server.del("/api/role/:id", roleLogic.deleteRole); //update is_delete by param
+  server.get("/api/role", authenticate, roleLogic.readAllRole);
+  server.get("/api/role/:id", authenticate, roleLogic.readOneRole);
+  server.post("/api/role", authenticate, roleLogic.createRole);
+  server.put("/api/role/:id", authenticate, roleLogic.updateRole);
+  server.del("/api/role/:id", authenticate, roleLogic.deleteRole);
   //== End of Master Role Route
 
   // Master Access Menu Route
   // Made By: Randika Alditia
-  //server.post("/api/access", accessLogic.createAccess);
-  server.get("/api/access", accessLogic.readAllAccess);
-  server.get("/api/access/:id", accessLogic.readOneAccess);
-  server.put("/api/access/:id", accessLogic.updateAccess);
-  // server.del("/api/access/:id", accessLogic.deleteAccess);
+  server.get("/api/access", authenticate, accessLogic.readAllAccess);
+  server.get("/api/access/:id", authenticate, accessLogic.readOneAccess);
+  server.put("/api/access/:id", authenticate, accessLogic.updateAccess);
   //== End of Master Access Menu Route
 
   // Master Menu Route
   // Made By: Ahmad Anshori
-  server.get("/api/menu", menuLogic.readMenuAlHandler);
-  server.get("/api/menusidebar", menuLogic.readMenuSidebar);
-  server.get("/api/menu/:menuid", menuLogic.readMenuOneById);
-  server.post("/api/menu", menuLogic.createMenuHandler);
-  server.put("/api/menu/:menuid", menuLogic.updateMenuHandler);
-  server.del("/api/menu/:menuid", menuLogic.deleteMenuHandler);
+  server.get("/api/menu", authenticate, menuLogic.readMenuAlHandler);
+  server.get("/api/menusidebar", authenticate, menuLogic.readMenuSidebar);
+  server.get("/api/menu/:menuid", authenticate, menuLogic.readMenuOneById);
+  server.post("/api/menu", authenticate, menuLogic.createMenuHandler);
+  server.put("/api/menu/:menuid", authenticate, menuLogic.updateMenuHandler);
+  server.del("/api/menu/:menuid", authenticate, menuLogic.deleteMenuHandler);
   //== End of Master Menu Route
 
   // Master Product Route
   // Made By: Rio Yudha P
-  server.get("/api/product", productLogic.readAllHandler);
-  server.get("/api/product/:productId", productLogic.readByIdHandler);
-  server.post("/api/product", productLogic.createHandler);
-  server.put("/api/product/:productId", productLogic.updateHandler);
-  server.del("/api/product/:productId", productLogic.deleteHandler);
+  server.get("/api/product", authenticate, productLogic.readAllHandler);
+  server.get(
+    "/api/product/:productId",
+    authenticate,
+    productLogic.readByIdHandler
+  );
+  server.post("/api/product", authenticate, productLogic.createHandler);
+  server.put(
+    "/api/product/:productId",
+    authenticate,
+    productLogic.updateHandler
+  );
+  server.del(
+    "/api/product/:productId",
+    authenticate,
+    productLogic.deleteHandler
+  );
   //== End of Master Product Route
 
   // Master Employee Route
   // Made By: Purwanto
-  server.get("/api/employee", employeeLogic.readAllHandler);
-  server.get("/api/employee/:employeeId", employeeLogic.readByIdHandler);
-  server.post("/api/employee", employeeLogic.createHandler);
-  server.put("/api/employee/:employeeId", employeeLogic.updateHandler);
-  server.del("/api/employee/:employeeId", employeeLogic.deleteHandler);
+  server.get("/api/employee", authenticate, employeeLogic.readAllHandler);
+  server.get(
+    "/api/employee/:employeeId",
+    authenticate,
+    employeeLogic.readByIdHandler
+  );
+  server.post("/api/employee", authenticate, employeeLogic.createHandler);
+  server.put(
+    "/api/employee/:employeeId",
+    authenticate,
+    employeeLogic.updateHandler
+  );
+  server.del(
+    "/api/employee/:employeeId",
+    authenticate,
+    employeeLogic.deleteHandler
+  );
   //== End of Master Employee Route
 
   // Transaction Event Route
   // Made By: Purwanto
-  server.get("/api/tevent", tEventLogic.readAllHandler);
-  server.get("/api/tevent/:teventId", tEventLogic.readByIdHandler);
-  server.post("/api/tevent", tEventLogic.createHandler);
-  server.put("/api/tevent/:teventId", tEventLogic.updateHandler);
-  server.del("/api/tevent/:teventId", tEventLogic.deleteHandler);
+  server.get("/api/tevent", authenticate, tEventLogic.readAllHandler);
+  server.get(
+    "/api/tevent/:teventId",
+    authenticate,
+    tEventLogic.readByIdHandler
+  );
+  server.post("/api/tevent", authenticate, tEventLogic.createHandler);
+  server.put("/api/tevent/:teventId", authenticate, tEventLogic.updateHandler);
+  server.del("/api/tevent/:teventId", authenticate, tEventLogic.deleteHandler);
   //== End of Transaction Event Route
 
   // Transaction Souvernir Route
   // Made By: Rio Yudha
-  server.get("/api/tsouvernir", tSouvernirLogic.readSouvernirAllHandler);
-  server.get("/api/tsouvernir/:souvernirId", tSouvernirLogic.readByIdHandler);
-  server.post("/api/tsouvernir", tSouvernirLogic.createHandler);
+  server.get(
+    "/api/tsouvernir",
+    authenticate,
+    tSouvernirLogic.readSouvernirAllHandler
+  );
+  server.get(
+    "/api/tsouvernir/:souvernirId",
+    authenticate,
+    tSouvernirLogic.readByIdHandler
+  );
+  server.post("/api/tsouvernir", authenticate, tSouvernirLogic.createHandler);
   //==End of Transaction Souvernir Route
 
-  // Master User Route
-  // Login Process
+  // Master User Route - Login Process
   // Made By: Hanif Al Baaits
   server.post("/api/user/login", userLogic.loginUserHandler);
-  server.put("/api/user/repass/:userid", userLogic.updatePassword); //untuk update password (user)
-  //== End of Logic Process Route
-
-  // CRUD User Route
-  //ambil nama employee yg belum memiliki user
-  server.get(
-    "/api/useremployee",
-    authenticate.checkToken,
-    userLogic.readEmployeeFromUser
-  );
-  server.get(
-    "/api/user",
-    authenticate.checkToken,
-    userLogic.readUserAllHandler
-  );
-  //ambil 1 user dari username
-  server.get(
-    "/api/user/:userid",
-    authenticate.checkToken,
-    userLogic.readUserByUsername
-  );
-  //membuat user baru
-  server.post(
-    "/api/user",
-    authenticate.checkToken,
-    userLogic.createUserHandler
-  );
+  server.put("/api/user/repass/:userid", userLogic.updatePassword);
+  // Master User Route - CRUD
+  server.get("/api/useremployee", authenticate, userLogic.readEmployeeFromUser);
+  server.get("/api/user", authenticate, userLogic.readUserAllHandler);
+  server.get("/api/user/:userid", authenticate, userLogic.readUserByUsername);
+  server.post("/api/user", authenticate, userLogic.createUserHandler);
   server.put("/api/user/:userid", userLogic.updateUserById);
-  server.del(
-    "/api/user/:id",
-    authenticate.checkToken,
-    userLogic.deleteUserHandler
-  );
+  server.del("/api/user/:id", authenticate, userLogic.deleteUserHandler);
   //==End of Master User Route
 
   // Master Unit Route
   // Made By: Fahmi Muzakki
-  server.get("/api/unit", unitLogic.readUnitHandler);
-  server.get("/api/unit/:unitId", unitLogic.readOneByIdHandler);
-  server.post("/api/unit", unitLogic.createUnitHandler);
-  server.put("/api/unit/:unitId", unitLogic.updateUnitHandler);
-  server.del("/api/unit/:unitId", unitLogic.deleteUnitHandler);
+  server.get("/api/unit", authenticate, unitLogic.readUnitHandler);
+  server.get("/api/unit/:unitId", authenticate, unitLogic.readOneByIdHandler);
+  server.post("/api/unit", authenticate, unitLogic.createUnitHandler);
+  server.put("/api/unit/:unitId", authenticate, unitLogic.updateUnitHandler);
+  server.del("/api/unit/:unitId", authenticate, unitLogic.deleteUnitHandler);
   //==End of Master Unit Route
 
   // Transaction Design Route
   // Made By: Dian Yuanda
-  server.get("/api/design", designLogic.readAllDesignHandler);
-  server.get("/api/design/:designId", designLogic.readByIdHandler);
-  server.post("/api/design", designLogic.createDesignHandler);
-  server.put("/api/design/:designId", designLogic.updateDesignHandler);
+  server.get("/api/design", authenticate, designLogic.readAllDesignHandler);
+  server.get(
+    "/api/design/:designId",
+    authenticate,
+    designLogic.readByIdHandler
+  );
+  server.post("/api/design", authenticate, designLogic.createDesignHandler);
+  server.put(
+    "/api/design/:designId",
+    authenticate,
+    designLogic.updateDesignHandler
+  );
   //== End of Transaction Design Route
 
   // Transaction Souvenir Route
   // Made By: Rio Yudha
-  server.put("/api/tsouvernir/:souvernirId", tSouvernirLogic.updateHandler);
-  server.del("/api/tsouvernir/:souvernirId", tSouvernirLogic.deleteHandler);
+  server.put(
+    "/api/tsouvernir/:souvernirId",
+    authenticate,
+    tSouvernirLogic.updateHandler
+  );
+  server.del(
+    "/api/tsouvernir/:souvernirId",
+    authenticate,
+    tSouvernirLogic.deleteHandler
+  );
   //==End of Transaksi Souvernir
 };
