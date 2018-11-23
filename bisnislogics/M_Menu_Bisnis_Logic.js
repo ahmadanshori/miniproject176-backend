@@ -29,12 +29,11 @@ const M_Menu_Bisnis_Logic = {
         }, id);
     },
     updateMenuHandler: (req, res, next) => {
-        console.log(req.body);
         let id = req.params.menuid;
         const data = {
             name: req.body.name,
             controller: req.body.controller,
-            parent_id: req.body.parentId,
+            parent_id: req.body.parent_id,
             updated_date: new Date().toDateString(),
             //update_by : req.body.update_by
             updated_by: req.body.name
@@ -66,9 +65,9 @@ const M_Menu_Bisnis_Logic = {
                 code: newCode,
                 name: req.body.name,
                 controller: req.body.controller,
-                parent_id: req.body.parentId,
+                parent_id: req.body.parent_id,
                 is_delete: false,
-                created_by: req.body.createdBy,
+                created_by: req.body.created_by,
                 created_date: new Date().toDateString()
             };
 
