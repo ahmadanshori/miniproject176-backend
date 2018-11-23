@@ -16,30 +16,23 @@ module.exports = server => {
   // Root Route
   server.get("/", (req, res, next) => {});
 
-  // Souvenir Route
+  // Master Souvenir Route
   // Made By: Dian Yuanda
   server.get("/api/souvenir", souvenirLogic.readAllHandler);
   server.get("/api/souvenir/:souvenirId", souvenirLogic.readByIdHandler);
-  server.post("/api/souvenir", authenticate, souvenirLogic.createHandler);
-  server.put(
-    "/api/souvenir/:souvenirId",
-    authenticate,
-    souvenirLogic.updateHandler
-  );
-  server.del(
-    "/api/souvenir/:souvenirId",
-    authenticate,
-    souvenirLogic.deleteHandler
-  );
-  //== End of Souvenir Route
+  server.post("/api/souvenir", souvenirLogic.createHandler);
+  server.put("/api/souvenir/:souvenirId", souvenirLogic.updateHandler);
+  server.del("/api/souvenir/:souvenirId", souvenirLogic.deleteHandler);
+  //== End of Master Souvenir Route
 
-  //== Company =======
-  // authenticate.checkToken,
+  // Master Company Route
+  // Made By: Deovani Anugrah
   server.get("/api/company", companyLogic.readCompanyAlHandler); //mengambil seluruh data company
   server.get("/api/company/:companyid", companyLogic.readCompanyOneById); //menhambil 1 data berdasarkan params company
   server.post("/api/company", companyLogic.create_company_Handler); //membuat company baru (body)
   server.put("/api/company/:companyid", companyLogic.updateCompanyHandler); //mengupdate berdasarkan params dan body
   server.del("/api/company/:companyid", companyLogic.deleteCompanyHandler); //mengubah field delete menjadi true
+  //== End of Master Company Route
 
   // Master Role Route
   // Made By: Randika Alditia
@@ -58,15 +51,6 @@ module.exports = server => {
   server.put("/api/access/:id", accessLogic.updateAccess);
   // server.del("/api/access/:id", accessLogic.deleteAccess);
   //== End of Master Access Menu Route
-
-  // Master Souvenir Route
-  // Made By: Dian Yuanda
-  server.get("/api/souvenir", souvenirLogic.readAllHandler);
-  server.get("/api/souvenir/:souvenirId", souvenirLogic.readByIdHandler);
-  server.post("/api/souvenir", souvenirLogic.createHandler);
-  server.put("/api/souvenir/:souvenirId", souvenirLogic.updateHandler);
-  server.del("/api/souvenir/:souvenirId", souvenirLogic.deleteHandler);
-  //== End of Master Souvenir Route
 
   // Master Menu Route
   // Made By: Ahmad Anshori
