@@ -1,40 +1,37 @@
 const ResponseHelper = require("../helpers/Response_Helper");
-const dtl = require("../datalayers/M_Company_Data");
+const companyData = require("../datalayers/M_Company_Data");
 
 const M_company_Bisnis_Logic = {
   readCompanyAlHandler: (req, res, next) => {
-    //console.log("disini");
-    dtl.readCompannyAlHandlerData(items => {
+    companyData.readCompannyAlHandlerData(items => {
       ResponseHelper.sendResponse(res, 200, items);
-      //console.log(JSON.stringify(items))
     });
   },
   readCompanyOneById: (req, res, next) => {
     let id = req.params.companyid;
-    dtl.readCompanyOneById(items => {
+    companyData.readCompanyOneById(items => {
       ResponseHelper.sendResponse(res, 200, items);
     }, id);
   },
   deleteCompanyHandler: (req, res, next) => {
     let id = req.params.companyid;
-    dtl.deleteCompanyHandler(items => {
+    companyData.deleteCompanyHandler(items => {
       ResponseHelper.sendResponse(res, 200, items);
     }, id);
   },
   updateCompanyHandler: (req, res, next) => {
-    console.log(req.body);
     let id = req.params.companyid;
+
     const data = {
       name: req.body.name,
       address: req.body.address,
       phone: req.body.phone,
       email: req.body.email,
       updated_date: new Date().toDateString(),
-      //update_by : req.body.update_by
-      updated_by: req.userdata.username
+      updated_by: req.body.update_by
     };
 
-    dtl.updateCompanyHandler(
+    companyData.updateCompanyHandler(
       items => {
         ResponseHelper.sendResponse(res, 200, items);
       },
@@ -42,9 +39,8 @@ const M_company_Bisnis_Logic = {
       id
     );
   },
-
-  create_company_Handler: (req, res, next) => {
-    dtl.readCompanyLastId(companies => {
+  createCompanyHandler: (req, res, next) => {
+    companyData.readCompanyLastId(companies => {
       if (companies.length > 0) {
         let pattern = companies[0].code.substr(-4);
         let lastestCode = parseInt(pattern) + 1;
@@ -63,12 +59,12 @@ const M_company_Bisnis_Logic = {
         email: req.body.email,
         address: req.body.address,
         phone: req.body.phone,
-        is_delete: null,
+        is_delete: false,
         created_by: req.body.created_by,
         created_date: new Date().toDateString()
       };
 
-      dtl.create_company_Handler(function(items) {
+      companyData.createCompanyHandler(function(items) {
         ResponseHelper.sendResponse(res, 200, items);
       }, data);
     });

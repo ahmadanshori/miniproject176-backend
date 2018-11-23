@@ -48,11 +48,7 @@ module.exports = server => {
     authenticate,
     companyLogic.readCompanyOneById
   );
-  server.post(
-    "/api/company",
-    authenticate,
-    companyLogic.create_company_Handler
-  );
+  server.post("/api/company", authenticate, companyLogic.createCompanyHandler);
   server.put(
     "/api/company/:companyid",
     authenticate,

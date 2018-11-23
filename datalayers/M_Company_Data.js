@@ -17,7 +17,7 @@ const companyData = {
   },
   readCompanyOneById: (callback, id) => {
     db.collection("m_company")
-      .find({ code: id })
+      .find({ _id: new ObjectID(id) })
       .sort({ code: 1 })
       .toArray((err, docs) => {
         let m_comp = docs.map(row => {
@@ -40,7 +40,7 @@ const companyData = {
   },
   deleteCompanyHandler: (callback, id) => {
     db.collection("m_company").updateOne(
-      { code: id },
+      { _id: new ObjectID(id) },
       { $set: { is_delete: true } },
       (err, docs) => {
         callback(docs);
@@ -52,13 +52,13 @@ const companyData = {
       { _id: new ObjectID(id) },
       { $set: data },
       (err, docs) => {
-        callback(docs);
+        callback(data);
       }
     );
   },
-  create_company_Handler: (callback, data) => {
+  createCompanyHandler: (callback, data) => {
     db.collection("m_company").insert(data, (err, docs) => {
-      callback(docs);
+      callback(data);
     });
   }
 };
