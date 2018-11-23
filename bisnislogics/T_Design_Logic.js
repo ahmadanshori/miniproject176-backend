@@ -1,54 +1,47 @@
 const ResponseHelper = require('../helpers/Response_Helper')
-const dtl = require('../datalayers/M_Unit_Data')
+const dtl = require('../datalayers/T_Design_Data')
 
 
 const T_Design = {
-    readUnit: (req, res, next) => {
-        dtl.readUnitData(function (items) {
-            ResponseHelper.sendResponse(res, 200, items)
-        })
+
+    // <<<< PHASE 2 APPROVE >>>
+    approveHandler: (req, res, next) => {
+        let data=req.body
+        const id = req.params.Id 
+        if(req.body.status != 0)
+        {
+            data = {status: parseInt(req.body.status)+1,
+            assign_to:req.body.assign_to}
+        }else{  
+            data = {status: 0,
+            assign_to:null}}
+            dtl.approveStatus(function (items) {
+                ResponseHelper.sendResponse(res, 200, items)
+            }, data, id)
     },
 
-    readOneById: (req, res, next) => {
-        const id = req.params.unitId
-        
-        dtl.readOneByIdData(function (items) {
+    closeReqHandler: (req, res, next) => {
+        let data=req.body
+            dtl.closeRequestData(function (items) {
+                ResponseHelper.sendResponse(res, 200, items)
+            }, data, id)
+    },
+
+    // <<<< PHASE 3 REQUEST PROGRESS  >>>
+    getDesignItem:(req,res,next)=>
+    {
+        const id = req.params.Id
+        dtl.readDesignItemById(function (items) {
             ResponseHelper.sendResponse(res, 200, items)
         }, id)
     },
 
-    create_Unit_Handler: (req, res, next) => {
-        let data = req.body
-        dtl.countAll(item=>{
-            
-            dtl.create_Unit_HandlerData(function (items) {
-                ResponseHelper.sendResponse(res, 200, items)
-            }, data,item)
-        })
-        
-    },
-
-    updateUnitHandler: (req, res, next) => {
-
-        const id = req.params.unitId
-        const data = {
-            code: req.body.code,
-            name: req.body.name,
-            description: req.body.description,
-            controller: req.body.controller,
-            updated_date:new Date().toDateString()
-        }
-
-        dtl.updateUnitHandlerData(function (items) {
-            ResponseHelper.sendResponse(res, 200, items)
-        }, data, id)
-    },
-
-    deleteUnitHandler: (req, res, next) => {
-        const id = req.params.unitId
-        dtl.deleteUnitHandlerData(function (items) {
+    readFile:(req,res,next)=>
+    {
+        const id = req.params.Id
+        dtl.readFilebyId(function (items) {
             ResponseHelper.sendResponse(res, 200, items)
         }, id)
     },
 }
-module.exports = M_Unit_BisnisLogics
+module.exports = T_Design

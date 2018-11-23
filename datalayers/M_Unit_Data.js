@@ -7,8 +7,6 @@ const db = DB.getConnection()
 
 const dt = {
     //<<<<<------------Unit------------>>>>>>>>>>>
-
-
     readUnitData: (callback) => {
         db.collection('m_unit').find({is_delete:false}).sort({ code: 1 })
             .toArray((err, docs) => {
@@ -19,11 +17,9 @@ const dt = {
                 callback(m_unit)
                 console.log(docs)
             })
-           
     },
 
-    readOneByIdData: (callback, cd) => {
-        
+    readOneByIdData: (callback, cd) => { 
         db.collection('m_unit').find({is_delete: false, code:cd}).sort({code: 1})
             .toArray((err, docs) => {
                 let m_unit =
@@ -57,6 +53,7 @@ const dt = {
             )
             
     },
+
     updateUnitHandlerData: (callback, data, id) => {
        
         db.collection('m_unit').updateOne({
@@ -80,6 +77,5 @@ const dt = {
             callback(docs)
         })
     },
-
 }
 module.exports = dt
