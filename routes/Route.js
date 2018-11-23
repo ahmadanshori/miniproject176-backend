@@ -12,6 +12,7 @@ module.exports = server => {
   // Design Item Route
   // Made By: Dian Yuanda
   server.post("/api/design/item", designItemLogic.createItemHandler);
+  server.del("/api/design/item/:itemId", designItemLogic.deleteItemHandler);
   //== End of Design Item Route
 
   // Souvenir Route

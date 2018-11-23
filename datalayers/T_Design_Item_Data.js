@@ -10,6 +10,23 @@ const designDataItem = {
     db.collection("t_design_item").insertMany(newData, (err, design) => {
       callback(newData);
     });
+  },
+  readByIdData: (callback, itemId) => {
+    db.collection("t_design_item").findOne(
+      { is_delete: false, _id: new ObjectId(itemId) },
+      (err, item) => {
+        callback(item);
+      }
+    );
+  },
+  deleteData: (callback, itemId, deleteItem) => {
+    db.collection("t_design_item").updateOne(
+      { _id: new ObjectId(itemId) },
+      { $set: deleteItem },
+      (err, item) => {
+        callback(deleteItem);
+      }
+    );
   }
 };
 
