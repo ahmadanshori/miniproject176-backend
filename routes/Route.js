@@ -1,6 +1,6 @@
 const authenticate = require("../helpers/Auth_Helper");
 const souvenirLogic = require("../bisnislogics/M_Souvenir_Logic");
-const menuBisnisLogic = require("../bisnislogics/M_Menu_Bisnis_Logic");
+const menuLogic = require("../bisnislogics/M_Menu_Bisnis_Logic");
 const productLogic = require("../bisnislogics/M_Product_Logic");
 const tSouvernirLogic = require("../bisnislogics/T_Souvernir_Logic");
 const employeeLogic = require("../bisnislogics/M_Employee_Logic");
@@ -8,16 +8,38 @@ const tEventLogic = require("../bisnislogics/T_Event_Logic");
 const userLogic = require("../bisnislogics/M_User_Logic");
 const unitLogic = require("../bisnislogics/M_Unit_Logic");
 const designLogic = require("../bisnislogics/T_Design_Logic");
-
 const roleLogic = require("../bisnislogics/M_Role_Bisnis_Logic");
 const accessLogic = require("../bisnislogics/M_Menu_Access_Bisnis_Logic");
-//const authMiddleware = require("../middleware/authmiddleware");
+const companyLogic = require("../bisnislogics/M_Company_Bisnis_Logic");
 
 module.exports = server => {
   // Root Route
   server.get("/", (req, res, next) => {});
 
-  // All Routes Here
+  // Souvenir Route
+  // Made By: Dian Yuanda
+  server.get("/api/souvenir", souvenirLogic.readAllHandler);
+  server.get("/api/souvenir/:souvenirId", souvenirLogic.readByIdHandler);
+  server.post("/api/souvenir", authenticate, souvenirLogic.createHandler);
+  server.put(
+    "/api/souvenir/:souvenirId",
+    authenticate,
+    souvenirLogic.updateHandler
+  );
+  server.del(
+    "/api/souvenir/:souvenirId",
+    authenticate,
+    souvenirLogic.deleteHandler
+  );
+  //== End of Souvenir Route
+
+  //== Company =======
+  // authenticate.checkToken,
+  server.get("/api/company", companyLogic.readCompanyAlHandler); //mengambil seluruh data company
+  server.get("/api/company/:companyid", companyLogic.readCompanyOneById); //menhambil 1 data berdasarkan params company
+  server.post("/api/company", companyLogic.create_company_Handler); //membuat company baru (body)
+  server.put("/api/company/:companyid", companyLogic.updateCompanyHandler); //mengupdate berdasarkan params dan body
+  server.del("/api/company/:companyid", companyLogic.deleteCompanyHandler); //mengubah field delete menjadi true
 
   // Master Role Route
   // Made By: Randika Alditia
@@ -48,12 +70,12 @@ module.exports = server => {
 
   // Master Menu Route
   // Made By: Ahmad Anshori
-  server.get("/api/menu", menuBisnisLogic.readMenuAlHandler);
-  server.get("/api/menusidebar", menuBisnisLogic.readMenuSidebar);
-  server.get("/api/menu/:menuid", menuBisnisLogic.readMenuOneById);
-  server.post("/api/menu", menuBisnisLogic.createMenuHandler);
-  server.put("/api/menu/:menuid", menuBisnisLogic.updateMenuHandler);
-  server.del("/api/menu/:menuid", menuBisnisLogic.deleteMenuHandler);
+  server.get("/api/menu", menuLogic.readMenuAlHandler);
+  server.get("/api/menusidebar", menuLogic.readMenuSidebar);
+  server.get("/api/menu/:menuid", menuLogic.readMenuOneById);
+  server.post("/api/menu", menuLogic.createMenuHandler);
+  server.put("/api/menu/:menuid", menuLogic.updateMenuHandler);
+  server.del("/api/menu/:menuid", menuLogic.deleteMenuHandler);
   //== End of Master Menu Route
 
   // Master Product Route
