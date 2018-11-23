@@ -138,6 +138,13 @@ const T_Design_Logic = {
       data,
       id
     );
+  },
+  createDesignItemFile: (req, res, next) => {
+    let data = req.body.design_item_file_data;
+
+    dtl.createItemFileData(function(items) {
+      ResponseHelper.sendResponse(res, 200, items);
+    }, data);
   }
 };
 module.exports = T_Design_Logic;

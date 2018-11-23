@@ -49,6 +49,13 @@ const designData = {
       }
     );
   },
+  createItemFileData: (callback, datas) => {
+    let object = datas.map(data => new T_Design_File(data));
+
+    db.collection("m_design_item_file").insertMany(object, (err, docs) => {
+      callback(object);
+    });
+  },
   readDesignItemById: (callback, id) => {
     db.collection("t_design_item")
       .find({ is_delete: false, _id: new ObjectID(id) })

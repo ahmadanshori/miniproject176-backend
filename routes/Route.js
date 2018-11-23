@@ -247,4 +247,9 @@ module.exports = server => {
     designLogic.closeReqHandler
   );
   //== End of Transaction Design Approve
+
+  // Transaction Design Close Route
+  // Made By: Fahmi Muzakki
+  server.post("/api/design/item_file", designLogic.createDesignItemFile);
+  //== End of Transaction Design Close Route
 };
