@@ -30,6 +30,15 @@ const designDataItem = {
       }
     );
   },
+  updateItemData: (callback, itemId, formdata) => {
+    db.collection("t_design_item").updateOne(
+      { _id: new ObjectId(itemId) },
+      { $set: formdata },
+      (err, item) => {
+        callback(formdata);
+      }
+    );
+  },
   deleteData: (callback, itemId, deleteItem) => {
     db.collection("t_design_item").updateOne(
       { _id: new ObjectId(itemId) },

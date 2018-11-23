@@ -13,6 +13,7 @@ module.exports = server => {
   // Made By: Dian Yuanda
   server.get("/api/design/item/:designId", designItemLogic.readAllItemHandler);
   server.post("/api/design/item", designItemLogic.createItemHandler);
+  server.put("/api/design/item/:itemId", designItemLogic.updateItemHandler);
   server.del("/api/design/item/:itemId", designItemLogic.deleteItemHandler);
   //== End of Design Item Route
 
