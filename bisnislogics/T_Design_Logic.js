@@ -139,18 +139,6 @@ const T_Design_Logic = {
       data,
       id
     );
-  },
-  getDesignItem: (req, res, next) => {
-    const id = req.params.Id;
-    designData.readDesignItemById(function(items) {
-      ResponseHelper.sendResponse(res, 200, items);
-    }, id);
-  },
-  readFile: (req, res, next) => {
-    const id = req.params.Id;
-    designData.readFilebyId(function(items) {
-      ResponseHelper.sendResponse(res, 200, items);
-    }, id);
   }
 };
 module.exports = T_Design_Logic;
