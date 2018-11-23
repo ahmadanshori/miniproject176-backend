@@ -28,6 +28,29 @@ const userData = {
       callback(docs);
     });
   },
+  readEmployeeFromUser: (callback, username) => {
+    db.collection("m_employee")
+      .aggregate([
+        {
+          $lookup: {
+            from: "m_user",
+            localField: "employee_number",
+            foreignField: "m_employee_id",
+            as: "key"
+          }
+        },
+        { $match: { key: [] } },
+        {
+          $project: {
+            employee_number: "$employee_number",
+            name: { $concat: ["$first_name", " ", "$last_name"] }
+          }
+        }
+      ])
+      .toArray((err, docs) => {
+        callback(docs);
+      });
+  },
   deleteUserData: (callback, id) => {
     db.collection("m_user").updateOne(
       { _id: new ObjectID(id) },

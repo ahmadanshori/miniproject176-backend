@@ -91,23 +91,36 @@ module.exports = server => {
   //==End of Transaction Souvernir Route
 
   // Master User Route
+  // Login Process
   // Made By: Hanif Al Baaits
+  server.post("/api/user/login", userLogic.loginUserHandler);
+  server.put("/api/user/repass/:userid", userLogic.updatePassword); //untuk update password (user)
+  //== End of Logic Process Route
+
+  // CRUD User Route
+  //ambil nama employee yg belum memiliki user
+  server.get(
+    "/api/useremployee",
+    authenticate.checkToken,
+    userLogic.readEmployeeFromUser
+  );
   server.get(
     "/api/user",
     authenticate.checkToken,
     userLogic.readUserAllHandler
   );
+  //ambil 1 user dari username
   server.get(
     "/api/user/:userid",
     authenticate.checkToken,
     userLogic.readUserByUsername
   );
+  //membuat user baru
   server.post(
     "/api/user",
     authenticate.checkToken,
     userLogic.createUserHandler
   );
-  server.post("/api/user/login", userLogic.loginUserHandler);
   server.put("/api/user/:userid", userLogic.updateUserById);
   server.del(
     "/api/user/:id",
