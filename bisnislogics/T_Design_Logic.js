@@ -39,7 +39,6 @@ const T_Design_Logic = {
         )}${generatedPattern}${latestCode}`;
       } else {
         var newCode = `TRWODS${moment().format("DDMMYYYY")}00001`;
-        responseHelper.sendResponse(res, 200, newCode);
       }
 
       const today = moment().format("DD-MM-YYYY");
