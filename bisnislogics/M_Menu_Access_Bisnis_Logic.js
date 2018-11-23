@@ -18,19 +18,18 @@ const accessLogic = {
         let data = {
             m_menu_id : req.body.m_menu_id
         }
-        
         datalayer.getReqAndDB((items)=>{
-            datalayer.createAccess((item)=>{
-                datalayer.deleteAccess((lala)=>{
-                    let message = '';
-                    if(lala == null){
-                        message = item;
-                    }
-                    if(item == null){
-                        message = lala;
-                    }
-                    response.sendResponse(res, 200, message);
-                }, id, items[0]);     
+            datalayer.createAccess((itemCreate)=>{
+                datalayer.makeFalseIsDelete((itemFalse)=>{
+                    datalayer.deleteAccess((itemTrue)=>{
+                        let message = {
+                            "is_delete tobe false": itemFalse,
+                            "is_delete tobe true" : itemTrue,
+                            "create new access": itemCreate
+                        };
+                        response.sendResponse(res, 200, message);
+                    }, id, items[0]);
+                }, items[2], id);  
             }, items[1], id);
         }, data, id);
     }

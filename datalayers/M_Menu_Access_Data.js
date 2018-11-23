@@ -70,7 +70,7 @@ const datalayer = {
     },
 
     getReqAndDB:(callback, data, id) => {
-        const func = (arrRequest, arrDB)=>{
+        const func = (arrRequest, arrDB, falseIsDelete)=>{
             let query = [];
             const func2 = ()=>{
                 let a = arrDB.filter(lala=>lala!=arrRequest[0]);
@@ -104,13 +104,27 @@ const datalayer = {
                     //{"m_role_id":"RO0001", "m_menu_id": content, "created_by": "Randika", "created_date":new Date().toDateString(), "updated_by": null, "updated_date": null}
                 })); 
             }
+            query.push(falseIsDelete);
             return query;
         }
         db.collection('m_menu_access').find({m_role_id: id}).toArray((err, docs)=>{
             let fromDatabase =  docs.map((content)=>{
                 return new accessModel(content);
             }).map((val)=>val.m_menu_id);
-            let arr = func(data.m_menu_id, fromDatabase);
+            let isDeleteFalse = [];
+            let lala = docs.map((content)=>{
+                return new accessModel(content);
+            }).filter(e=>e.is_delete == true);
+            for(let i = 0; i < data.m_menu_id.length; i++){
+                isDeleteFalse.push(lala.filter(a=>a.m_menu_id == data.m_menu_id[i]));
+            }
+            let theRealIsDelete = isDeleteFalse.filter(b=>b.length!=0)
+            .map((content, index)=>{
+                return content.map(val=>val.m_menu_id)[0];
+            });
+            //console.log(theRealIsDelete);
+            
+            let arr = func(data.m_menu_id, fromDatabase, theRealIsDelete);
             callback(arr);
         });
     },
@@ -123,6 +137,26 @@ const datalayer = {
             let arr = [ data.m_menu_id, fromDatabase];
             callback(fromDatabase);
         });
+    },
+    makeFalseIsDelete: (callback, menu, id)=>{
+        const func = (queryData, idData)=>{
+            if(queryData == null){
+                return null;
+            }
+            else{
+                return queryData.map(content=>{
+                    return {"$and":[{"m_role_id": idData}, {"m_menu_id": content}]}
+                });
+            }            
+        }
+        if(func(menu, id) == null){
+            callback(null);
+        }
+        else{
+            db.collection('m_menu_access').updateMany({$or: func(menu, id)},{$set:{is_delete: false, updated_by: "Randika", updated_date: new Date().toDateString()}}, (err, docs)=>{
+                callback(docs);
+            });
+        }
     },
     
     createAccess: (callback, data, id) => {
