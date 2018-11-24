@@ -4,6 +4,8 @@ function M_User(m_user_data) {
   this.password = m_user_data.password;
   this.m_role_id = m_user_data.m_role_id;
   this.m_employee_id = m_user_data.m_employee_id;
+  this.role_name = m_user_data.role_name;
+  this.name = m_user_data.name;
   this.is_delete = m_user_data.is_delete;
   this.created_by = m_user_data.created_by;
   this.created_date = m_user_data.created_date;
@@ -18,6 +20,8 @@ M_User.prototype.getData = function() {
     password: this.password,
     m_role_id: this.m_role_id,
     m_employee_id: this.m_employee_id,
+    role_name: this.role_name,
+    name: this.name,
     is_delete: this.is_delete,
     created_by: this.created_by,
     created_date: this.created_date,

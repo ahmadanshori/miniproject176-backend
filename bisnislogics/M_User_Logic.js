@@ -80,8 +80,9 @@ const M_user_Logic = {
   },
   updateUserById: (req, res, next) => {
     //param melalui object ID & tidak boleh ganti username
-    let id = req.params.userid;
+    let id = req.params.id;
     const data = {
+      username: req.body.username,
       password: req.body.password,
       m_role_id: req.body.m_role_id,
       m_employee_id: req.body.m_employee_id,
@@ -102,7 +103,7 @@ const M_user_Logic = {
       });
     });
   },
-  updatePassword: (req, res, nex) => {
+  rePassword: (req, res, nex) => {
     let id = req.params.userid;
     let username = req.body.username;
     let password = req.body.password;
@@ -112,15 +113,14 @@ const M_user_Logic = {
         if (bcrypt.compareSync(password, docs.password)) {
           const data = {
             password: req.body.newPassword,
-            m_role_id: req.body.m_role_id,
-            m_employee_id: req.body.m_employee_id,
+            updated_by: username,
             updated_date: new Date().toDateString()
           };
 
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(data.password, salt, (err, hash) => {
               data.password = hash;
-              userData.updateUserData(
+              userData.rePassword(
                 items => {
                   responseHelper.sendResponse(res, 200, items);
                 },
@@ -132,6 +132,33 @@ const M_user_Logic = {
         } else {
           responseHelper.sendResponse(res, 404, "Password not match");
         }
+      } else {
+        responseHelper.sendResponse(res, 404, "User not found");
+      }
+    }, username);
+  },
+  forgotPassword: (req, res, nex) => {
+    let id = req.params.userid;
+    let username = req.body.username;
+    userData.readUserByUsername(docs => {
+      if (docs) {
+        const data = {
+          password: req.body.password,
+          updated_by: username,
+          updated_date: new Date().toDateString()
+        };
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(data.password, salt, (err, hash) => {
+            data.password = hash;
+            userData.rePassword(
+              items => {
+                responseHelper.sendResponse(res, 200, items);
+              },
+              data,
+              id
+            );
+          });
+        });
       } else {
         responseHelper.sendResponse(res, 404, "User not found");
       }
