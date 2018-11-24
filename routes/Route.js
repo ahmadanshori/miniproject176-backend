@@ -2,16 +2,16 @@ const authenticate = require("../helpers/Auth_Helper").checkToken;
 const souvenirLogic = require("../bisnislogics/M_Souvenir_Logic");
 const menuLogic = require("../bisnislogics/M_Menu_Bisnis_Logic");
 const productLogic = require("../bisnislogics/M_Product_Logic");
-const tSouvernirLogic = require("../bisnislogics/T_Souvernir_Logic");
 const employeeLogic = require("../bisnislogics/M_Employee_Logic");
-const tEventLogic = require("../bisnislogics/T_Event_Logic");
 const userLogic = require("../bisnislogics/M_User_Logic");
 const unitLogic = require("../bisnislogics/M_Unit_Logic");
-const designLogic = require("../bisnislogics/T_Design_Logic");
 const roleLogic = require("../bisnislogics/M_Role_Bisnis_Logic");
 const accessLogic = require("../bisnislogics/M_Menu_Access_Bisnis_Logic");
 const companyLogic = require("../bisnislogics/M_Company_Bisnis_Logic");
-const designItemLogic = require("../bisnislogics/T_Design_Item_Logic.js");
+const tSouvenirLogic = require("../bisnislogics/T_Souvernir_Logic");
+const tEventLogic = require("../bisnislogics/T_Event_Logic");
+const tDesignLogic = require("../bisnislogics/T_Design_Logic");
+const tDesignItemLogic = require("../bisnislogics/T_Design_Item_Logic.js");
 
 module.exports = server => {
   // Root Route
@@ -19,7 +19,7 @@ module.exports = server => {
 
   // All Routes Here
 
-  // Souvenir Route
+  // Master Souvenir Route
   // Made By: Dian Yuanda
   server.get("/api/souvenir", authenticate, souvenirLogic.readAllHandler);
   server.get(
@@ -85,7 +85,6 @@ module.exports = server => {
   server.post("/api/menu", authenticate, menuLogic.createMenuHandler);
   server.put("/api/menu/:menuid", authenticate, menuLogic.updateMenuHandler);
   server.del("/api/menu/:menuid", authenticate, menuLogic.deleteMenuHandler);
-
   //== End of Master Menu Route
 
   // Master Product Route
@@ -148,14 +147,14 @@ module.exports = server => {
   server.get(
     "/api/tsouvernir",
     authenticate,
-    tSouvernirLogic.readSouvernirAllHandler
+    tSouvenirLogic.readSouvernirAllHandler
   );
   server.get(
     "/api/tsouvernir/:souvernirId",
     authenticate,
-    tSouvernirLogic.readByIdHandler
+    tSouvenirLogic.readByIdHandler
   );
-  server.post("/api/tsouvernir", authenticate, tSouvernirLogic.createHandler);
+  server.post("/api/tsouvernir", authenticate, tSouvenirLogic.createHandler);
   //==End of Transaction Souvernir Route
 
   // Master User Route - Login Process
@@ -182,55 +181,41 @@ module.exports = server => {
 
   // Transaction Design Route
   // Made By: Dian Yuanda
-  server.get("/api/design", authenticate, designLogic.readAllDesignHandler);
+  server.get("/api/design", authenticate, tDesignLogic.readAllDesignHandler);
   server.get(
     "/api/design/:designId",
     authenticate,
-    designLogic.readByIdHandler
+    tDesignLogic.readByIdHandler
   );
-  server.post("/api/design", authenticate, designLogic.createDesignHandler);
+  server.post("/api/design", authenticate, tDesignLogic.createDesignHandler);
   server.put(
     "/api/design/:designId",
     authenticate,
-    designLogic.updateDesignHandler
+    tDesignLogic.updateDesignHandler
   );
   //== End of Transaction Design Route
-
-  // Transaction Souvenir Route
-  // Made By: Rio Yudha
-  server.put(
-    "/api/tsouvernir/:souvernirId",
-    authenticate,
-    tSouvernirLogic.updateHandler
-  );
-  server.del(
-    "/api/tsouvernir/:souvernirId",
-    authenticate,
-    tSouvernirLogic.deleteHandler
-  );
-  //==End of Transaksi Souvernir
 
   // Transaction Design Item Route
   // Made By: Dian Yuanda
   server.get(
     "/api/design/item/:designId",
     authenticate,
-    designItemLogic.readAllItemHandler
+    tDesignItemLogic.readAllItemHandler
   );
   server.post(
     "/api/design/item",
     authenticate,
-    designItemLogic.createItemHandler
+    tDesignItemLogic.createItemHandler
   );
   server.put(
     "/api/design/item/:itemId",
     authenticate,
-    designItemLogic.updateItemHandler
+    tDesignItemLogic.updateItemHandler
   );
   server.del(
     "/api/design/item/:itemId",
     authenticate,
-    designItemLogic.deleteItemHandler
+    tDesignItemLogic.deleteItemHandler
   );
   //== End of Transaction Design Item Route
 
@@ -239,17 +224,31 @@ module.exports = server => {
   server.put(
     "/api/design/approve/:Id",
     authenticate,
-    designLogic.approveHandler
+    tDesignLogic.approveHandler
   );
   server.put(
     "/api/design/close_request/:Id",
     authenticate,
-    designLogic.closeReqHandler
+    tDesignLogic.closeReqHandler
   );
   //== End of Transaction Design Approve
 
   // Transaction Design Close Route
   // Made By: Fahmi Muzakki
-  server.post("/api/design/item_file", designLogic.createDesignItemFile);
+  server.post("/api/design/item_file", tDesignLogic.createDesignItemFile);
   //== End of Transaction Design Close Route
+
+  // Transaction Souvenir Route
+  // Made By: Rio Yudha
+  server.put(
+    "/api/tsouvernir/:souvernirId",
+    authenticate,
+    tSouvenirLogic.updateHandler
+  );
+  server.del(
+    "/api/tsouvernir/:souvernirId",
+    authenticate,
+    tSouvenirLogic.deleteHandler
+  );
+  //==End of Transaksi Souvernir
 };

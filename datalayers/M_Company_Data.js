@@ -1,16 +1,16 @@
 const Database = require("../models/Database");
 const ObjectID = require("mongodb").ObjectID;
-const mCompany = require("../models/M_Company_Model");
+const M_Company = require("../models/M_Company_Model");
 
 const db = Database.getConnection();
 const companyData = {
   readCompannyAlHandlerData: callback => {
     db.collection("m_company")
-      .find({ is_delete: null })
+      .find({ is_delete: false })
       .sort({ code: 1 })
       .toArray((err, docs) => {
         let m_comp = docs.map(row => {
-          return new mCompany(row);
+          return new M_Company(row);
         });
         callback(m_comp);
       });
@@ -21,7 +21,7 @@ const companyData = {
       .sort({ code: 1 })
       .toArray((err, docs) => {
         let m_comp = docs.map(row => {
-          return new mCompany(row);
+          return new M_Company(row);
         });
         callback(m_comp);
       });
@@ -33,7 +33,7 @@ const companyData = {
       .limit(1)
       .toArray((err, docs) => {
         let m_comp = docs.map(row => {
-          return new mCompany(row);
+          return new M_Company(row);
         });
         callback(m_comp);
       });
@@ -57,7 +57,7 @@ const companyData = {
     );
   },
   createCompanyHandler: (callback, data) => {
-    db.collection("m_company").insert(data, (err, docs) => {
+    db.collection("m_company").insertOne(data, (err, docs) => {
       callback(data);
     });
   }

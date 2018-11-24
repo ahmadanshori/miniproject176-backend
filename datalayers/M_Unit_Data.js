@@ -15,9 +15,9 @@ const unitData = {
         callback(m_unit);
       });
   },
-  readOneByIdData: (callback, cd) => {
+  readOneByIdData: (callback, id) => {
     db.collection("m_unit")
-      .find({ is_delete: false, code: cd })
+      .find({ is_delete: false, _id: new ObjectID(id) })
       .sort({ code: 1 })
       .toArray((err, docs) => {
         let m_unit = docs.map(row => {
@@ -40,7 +40,7 @@ const unitData = {
     unit_object.created_date = new Date().toDateString();
 
     db.collection("m_unit").insertOne(unit_object, (err, docs) => {
-      callback(docs);
+      callback(unit_object);
     });
   },
   countAll: callback => {
@@ -51,7 +51,7 @@ const unitData = {
       { _id: new ObjectID(id) },
       { $set: data },
       (err, docs) => {
-        callback(docs);
+        callback(data);
       }
     );
   },

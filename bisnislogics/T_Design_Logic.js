@@ -113,7 +113,7 @@ const T_Design_Logic = {
     let data = req.body;
     const id = req.params.Id;
 
-    if (req.body.status != 0) {
+    if (req.body.status !== 0) {
       data = {
         status: parseInt(req.body.status) + 1,
         assign_to: req.body.assign_to
@@ -142,7 +142,7 @@ const T_Design_Logic = {
   createDesignItemFile: (req, res, next) => {
     let data = req.body.design_item_file_data;
 
-    dtl.createItemFileData(function(items) {
+    designData.createItemFileData(function(items) {
       ResponseHelper.sendResponse(res, 200, items);
     }, data);
   }

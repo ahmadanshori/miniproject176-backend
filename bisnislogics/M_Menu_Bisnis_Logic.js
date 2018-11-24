@@ -14,12 +14,14 @@ const M_Menu_Bisnis_Logic = {
   },
   readMenuOneById: (req, res, next) => {
     let id = req.params.menuid;
+
     menuData.readMenuOneById(items => {
       responseHelper.sendResponse(res, 200, items);
     }, id);
   },
   deleteMenuHandler: (req, res, next) => {
     let id = req.params.menuid;
+
     menuData.deleteMenuHandler(items => {
       responseHelper.sendResponse(res, 200, items);
     }, id);
@@ -30,9 +32,8 @@ const M_Menu_Bisnis_Logic = {
       name: req.body.name,
       controller: req.body.controller,
       parent_id: req.body.parent_id,
-      updated_date: new Date().toDateString(),
-      //update_by : req.body.update_by
-      updated_by: req.body.name
+      updated_by: req.body.updated_by,
+      updated_date: new Date().toDateString()
     };
 
     menuData.updateMenuHandler(

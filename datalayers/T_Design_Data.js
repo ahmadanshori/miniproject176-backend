@@ -50,10 +50,10 @@ const designData = {
     );
   },
   createItemFileData: (callback, datas) => {
-    let object = datas.map(data => new T_Design_File(data));
+    let designFile = datas.map(data => new T_Design_File(data));
 
-    db.collection("m_design_item_file").insertMany(object, (err, docs) => {
-      callback(object);
+    db.collection("m_design_item_file").insertMany(designFile, (err, docs) => {
+      callback(designFile);
     });
   },
   readDesignItemById: (callback, id) => {
@@ -69,12 +69,8 @@ const designData = {
   },
   closeRequestData: (callback, data, id) => {
     db.collection("t_design").updateOne(
-      {
-        _id: new ObjectID(id)
-      },
-      {
-        $set: data
-      },
+      { _id: new ObjectID(id) },
+      { $set: data },
       (err, docs) => {
         callback(docs);
       }
