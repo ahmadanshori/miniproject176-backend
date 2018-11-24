@@ -160,8 +160,9 @@ module.exports = server => {
   // Master User Route - Login Process
   // Made By: Hanif Al Baaits
   server.post("/api/user/login", userLogic.loginUserHandler);
-  server.put("/api/user/repass/:userid", userLogic.updatePassword);
-  // Master User Route - CRUD
+  server.put("/api/user/repass/:userid", authenticate, userLogic.rePassword);
+  server.put("/api/user/forgot/:userid", userLogic.forgotPassword);
+  // Master User Route - CRUD - ADMIN
   server.get("/api/useremployee", authenticate, userLogic.readEmployeeFromUser);
   server.get("/api/user", authenticate, userLogic.readUserAllHandler);
   server.get("/api/user/:userid", authenticate, userLogic.readUserByUsername);
