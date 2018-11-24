@@ -7,6 +7,7 @@ const userData = {
   readUserAllData: callback => {
     db.collection("m_user")
       .aggregate([
+        { $match: { is_delete: false } },
         {
           $lookup: {
             from: "m_role",
